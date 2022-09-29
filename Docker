@@ -1,0 +1,10 @@
+RUN source activate
+FROM python:3.8
+COPY my_website /root/my_website
+RUN apt-get update 
+RUN pip install -r /root/my_website/sherpa/requirements.txt
+EXPOSE 80
+EXPOSE 443
+EXPOSE 6006
+EXPOSE 6008
+CMD /root/my_website/nadira_launch_sherpa.sh
