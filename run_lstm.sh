@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "here"
+echo "sherpa server starting..."
 cd /home/ubuntu/my_website/sherpa
 ./sherpa/bin/lstm_transducer_stateless/streaming_server.py \
   --endpoint.rule3.min-utterance-length=1000.0 \
