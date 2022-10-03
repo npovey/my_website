@@ -77,8 +77,11 @@ RUN apt update
 
 RUN apt install git-lfs
 
-RUN git clone https://huggingface.co/csukuangfj/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03 /workspace/k2_models/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03
+RUN git clone https://huggingface.co/csukuangfj/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03 /workspace/k2_models/icefall-asr-librispeech-lstm-transducer-s>
 
+RUN git clone https://github.com/npovey/my_website.git /workspace/my_website
 ENV PYTHONPATH /workspace/my_website:$PYTHONPATH
 
 WORKDIR /workspace/my_website
+EXPOSE 6006
+EXPOSE 6008
