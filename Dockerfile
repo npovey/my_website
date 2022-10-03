@@ -71,14 +71,13 @@ RUN git clone https://github.com/k2-fsa/icefall /workspace/icefall && \
 RUN git clone https://github.com/k2-fsa/sherpa /workspace/sherpa && \
         cd /workspace/sherpa && \
         pip install -r requirements.txt
-
 RUN mkdir /workspace/k2_models
 
-RUN git lfs install
+RUN apt update
+
+RUN apt install git-lfs
 
 RUN git clone https://huggingface.co/csukuangfj/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03 /workspace/k2_models/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03
-
-RUN git clone https://github.com/npovey/my_website.git /workspace/my_website
 
 ENV PYTHONPATH /workspace/my_website:$PYTHONPATH
 
