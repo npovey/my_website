@@ -22,6 +22,7 @@ RUN apt-get update && \
         ca-certificates \
         patch \
         ffmpeg \
+	 screen \
         valgrind \
 		libssl-dev \
 	    vim \
