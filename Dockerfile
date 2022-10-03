@@ -22,11 +22,11 @@ RUN apt-get update && \
         ca-certificates \
         patch \
         ffmpeg \
-	 screen \
+	screen \
         valgrind \
-		libssl-dev \
-	    vim \
-		curl
+	libssl-dev \
+	vim \
+	curl
 
 # cmake
 RUN wget -P /opt https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz && \
