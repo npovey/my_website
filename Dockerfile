@@ -23,6 +23,7 @@ RUN apt-get update && \
         patch \
         ffmpeg \
 	screen \
+	pico \
         valgrind \
 	libssl-dev \
 	vim \
