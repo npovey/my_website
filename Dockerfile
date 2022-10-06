@@ -72,8 +72,9 @@ RUN git clone https://github.com/k2-fsa/icefall /workspace/icefall && \
 
 RUN git clone https://github.com/k2-fsa/sherpa /workspace/sherpa && \
         cd /workspace/sherpa && \
-        pip install -r requirements.txt \
-	cd sherpa && python3 setup.py install --verbose
+        pip install -r requirements.txt
+	
+RUN cd sherpa && python3 setup.py install --verbose
 	
 RUN mkdir /workspace/k2_models
 
