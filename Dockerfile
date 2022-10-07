@@ -24,6 +24,7 @@ RUN apt-get update && \
         ffmpeg \
 	screen \
 	nano \
+        lsof
         valgrind \
 	libssl-dev \
 	vim \
@@ -81,7 +82,7 @@ RUN mkdir /workspace/k2_models
 RUN apt update
 
 RUN apt install git-lfs
-
+RUN git lfs install
 RUN git clone https://huggingface.co/csukuangfj/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03 /workspace/k2_models/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03
 RUN git clone https://github.com/npovey/my_website.git /workspace/my_website
 ENV PYTHONPATH /workspace/my_website:$PYTHONPATH
