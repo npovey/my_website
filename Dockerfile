@@ -24,7 +24,7 @@ RUN apt-get update && \
         ffmpeg \
 	screen \
 	nano \
-        lsof
+        lsof \
         valgrind \
 	libssl-dev \
 	vim \
