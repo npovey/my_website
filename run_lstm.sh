@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "sherpa server starting..."
-cd /workspace/my_website/sherpa
+#cd /workspace/my_website/sherpa
 ./sherpa/bin/lstm_transducer_stateless/streaming_server.py \
   --endpoint.rule3.min-utterance-length=1000.0 \
   --port 6006 \
