@@ -8,7 +8,7 @@ Step 0: AWS setup [Note using a CPU not GPU for demo purposes]
  - NOTE: tried t3.medium and during Dockerfile build the machine is running out of memmory.
     - Memory (GiB): 4.0 
 
-Step 1: Build image take an hour
+Step 1: Building streaming server image takes an hour
 ```bash
 docker build . -f Dockerfile -t sherpa_server:latest
 ```
@@ -26,6 +26,11 @@ docker image ls
 
 
 Step 3: Start image
+
+```bash
+docker run 16b9eb93e298  ls -la
+```
+
 
 ```
 ubuntu@ip:~$ sudo docker run 16b9eb93e298  ls -la
@@ -53,13 +58,13 @@ sherpa server starting...
 
 Step 3: Start container
 
-```
+```bash
 docker start eager_jemison
 ```
 
 Step 4: Get into container
 
-```
+```bash
 docker exec -it eager_jemison /bin/bash
 ```
 
@@ -74,10 +79,9 @@ root@7e1e67c6fffb:/workspace/sherpa# /workspace/my_website/run_lstm.sh
 
 I needed at least 70GB space for streaming server
 
-```
+```bash
 df -h
 ```
-
 
 ```
 Filesystem      Size  Used Avail Use% Mounted on
