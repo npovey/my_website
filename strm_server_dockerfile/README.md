@@ -4,11 +4,22 @@ docker build . -f Dockerfile -t sherpa_server:latest
 ```
 
 Step 2: Start container
+
+```
 docker start eager_jemison
+```
+
 Step 3: Get into container
+
+```
 docker exec -it eager_jemison /bin/bash
+```
+
 Step 4: execute script
+
+```
 root@7e1e67c6fffb:/workspace/sherpa# /workspace/my_website/run_lstm.sh
+```
 
 
 ubuntu@ip:~$ docker image ls
