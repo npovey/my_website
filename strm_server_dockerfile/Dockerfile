@@ -90,5 +90,6 @@ ENV PYTHONPATH "${PYTHONPATH}:/workspace/my_website"
 EXPOSE 6006
 # EXPOSE 6008
 #RUN ./my_website/run_lstm.sh
-RUN cd sherpa
+#RUN cd sherpa
+WORKDIR /workspace/sherpa
 ENTRYPOINT ["/workspace/my_website/run_lstm.sh"]
