@@ -48,6 +48,11 @@ Step 6: Check disk usage, I needed at least 70GB space for streaming server
 ```
 df -h
 ```
+Need ~70GB
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       117G   66G   51G  57% /
+```
 
 
 
