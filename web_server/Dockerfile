@@ -80,11 +80,12 @@ RUN git clone https://github.com/k2-fsa/sherpa.git && \
 
 ENV PYTHONPATH "${PYTHONPATH}:/workspace/sherpa"
 
-RUN mkdir k2_models
-RUN apt-get update
-RUN apt-get install git-lfs
-RUN git lfs install
-RUN git clone https://huggingface.co/csukuangfj/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03 k2_models/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03
+#RUN mkdir k2_models
+#RUN apt-get update
+#RUN apt-get install git-lfs
+#RUN git lfs install
+#RUN git clone https://huggingface.co/csukuangfj/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03 k2_models/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03
+
 RUN git clone https://github.com/npovey/my_website.git
 ENV PYTHONPATH "${PYTHONPATH}:/workspace/my_website"
 # EXPOSE 6006 <-streaming_server
