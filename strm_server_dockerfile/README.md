@@ -22,7 +22,12 @@ root@7e1e67c6fffb:/workspace/sherpa# /workspace/my_website/run_lstm.sh
 ```
 
 
-ubuntu@ip:~$ docker image ls
-REPOSITORY               TAG         IMAGE ID       CREATED       SIZE
-sherpa_server            latest      1336a33b2a8a   5 hours ago   39.8GB
-nvcr.io/nvidia/pytorch   22.12-py3   1d9a58a6fcf5   7 weeks ago   18.3GB
+
+```bash
+docker image ls
+```
+
+| EPOSITORY | TAG  |  IMAGE ID | CREATED  |  SIZE |
+| --- | --- | --- | --- | --- |
+| sherpa_server    | latest  |  1336a33b2a8a  | 5 hours ago  | 39.8GB |
+| nvcr.io/nvidia/pytorch  | 22.12-py3  | 1d9a58a6fcf5 | 7 weeks ago  | 18.3GB |
