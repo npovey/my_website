@@ -1,5 +1,8 @@
 Step 1: Build image take an hour
+```
 docker build . -f Dockerfile -t sherpa_server:latest
+```
+
 Step 2: Start container
 docker start eager_jemison
 Step 3: Get into container
