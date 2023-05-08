@@ -90,3 +90,4 @@ ENV PYTHONPATH /workspace/my_website:$PYTHONPATH
 WORKDIR /workspace/my_website
 EXPOSE 6006
 EXPOSE 6008
+ENTRYPOINT ./run_lstm.sh
