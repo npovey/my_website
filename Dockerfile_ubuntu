@@ -3,7 +3,6 @@
 #sherpa_onnx_server   latest    e7010873bbd6   About a minute ago   3.19GB
 
 FROM python:3
-# dont need cuda or pitorch FROM pytorch/pytorch:1.12.1-cuda11.3-cudnn8-devel
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         g++ \
@@ -31,7 +30,6 @@ RUN apt-get update && \
 	curl \
         pip
 
-#RUN apt-get install -y --no-install-recommends  python3.8-dev
 RUN pip install websockets
 
 # cmake looks like sherpa-onnx needs this
