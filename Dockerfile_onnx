@@ -69,7 +69,6 @@ RUN mkdir /workspace/my_website
 COPY . /workspace/my_website
 
 ENV PYTHONPATH /workspace/my_website:$PYTHONPATH
-ENV PYTHONPATH /workspace/sherpa-onnx/build/bin:$PYTHONPATH
 
 WORKDIR /workspace/my_website
 EXPOSE 6006
