@@ -1,0 +1,127 @@
+#ubuntu@ip:~/my_website_onnx2$ docker images
+#REPOSITORY           TAG       IMAGE ID       CREATED              SIZE
+#sherpa_onnx_server   latest    e7010873bbd6   About a minute ago   3.19GB
+
+FROM python:3
+# dont need cuda or pitorch FROM pytorch/pytorch:1.12.1-cuda11.3-cudnn8-devel
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        g++ \
+        make \
+        automake \
+        autoconf \
+        bzip2 \
+        unzip \
+        wget \
+        sox \
+        libtool \
+        git \
+        subversion \
+        zlib1g-dev \
+        gfortran \
+        ca-certificates \
+        patch \
+        ffmpeg \
+	screen \
+	nano \
+        lsof \
+        valgrind \
+	libssl-dev \
+	vim \
+	curl \
+        pip
+
+#RUN apt-get install -y --no-install-recommends  python3.8-dev
+RUN pip install websockets
+
+# cmake looks like sherpa-onnx needs this
+RUN wget -P /opt https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz && \
+    cd /opt && \
+    tar -zxvf cmake-3.18.0.tar.gz && \
+    cd cmake-3.18.0 && \
+    ./bootstrap && \
+    make && \
+    make install && \
+    rm -rf cmake-3.18.0.tar.gz && \
+    find /opt/cmake-3.18.0 -type f \( -name "*.o" -o -name "*.la" -o -name "*.a" \) -exec rm {} \; && \
+    cd -
+
+
+RUN git clone https://github.com/k2-fsa/sherpa-onnx /workspace/sherpa-onnx
+RUN cd /workspace/sherpa-onnx && \
+      python3 setup.py install --verbose && \
+      cd -
+
+#didn't work
+#RUN pip install sherpa-onnx
+#COPY ./cert.pem /workspace/sherpa/sherpa/bin/web/
+
+
+
+	
+RUN mkdir /workspace/k2_models
+RUN apt update -y
+RUN apt install git-lfs -y
+RUN git lfs install
+
+# this works for sherpa [I think with Libri + Giga]but not sherpa-onnx
+ #RUN git clone https://huggingface.co/csukuangfj/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03 \
+ # /workspace/k2_models/icefall-asr-librispeech-lstm-transducer-stateless2-2022-09-03
+
+# csukuangfj/sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20 (Bilingual, Chinese + English)
+# In testing not doing well on english language use this model for chinese language decoding
+#RUN git clone https://huggingface.co/csukuangfj/sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20 /workspace/k2_models/sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20
+#RUN cd /workspace/k2_models/sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20 && \
+#       git lfs pull --include "*.onnx" && \
+#       cd -
+
+
+
+# This model is converted from
+#https://huggingface.co/marcoyang/icefall-libri-giga-pruned-transducer-stateless7-streaming-2023-04-04
+#which supports only English as it is trained on the LibriSpeech and GigaSpeech corpus.
+RUN git clone https://huggingface.co/csukuangfj/sherpa-onnx-streaming-zipformer-en-2023-06-21 /workspace/k2_models/sherpa-onnx-streaming-zipformer-en-2023-06-21
+RUN cd /workspace/k2_models/sherpa-onnx-streaming-zipformer-en-2023-06-21 && \
+       git lfs pull --include "*.onnx" && \
+       cd -
+
+# for streaming trained  LibriSpeech only
+#https://k2-fsa.github.io/sherpa/onnx/pretrained_models/online-transducer/zipformer-transducer-models.html#csukuangfj-sherpa-onnx-streaming-zipformer-en-2023-02-21-english
+#RUN git clone https://huggingface.co/csukuangfj/sherpa-onnx-streaming-zipformer-en-2023-02-21 /workspace/k2_models/sherpa-onnx-streaming-zipformer-en-2023-02-21
+#RUN cd /workspace/k2_models/sherpa-onnx-streaming-zipformer-en-2023-02-21 && \
+#        git lfs pull --include "*.onnx" && \
+#        cd -
+
+# This model is trained using GigaSpeech + LibriSpeech + Common Voice 13.0 with zipformer
+# https://k2-fsa.github.io/sherpa/onnx/pretrained_models/offline-transducer/zipformer-transducer-models.html#sherpa-onnx-zipformer-en-2023-04-01
+#RUN git clone https://huggingface.co/yfyeung/icefall-asr-multidataset-pruned_transducer_stateless7-2023-05-04 /workspace/k2_models/icefall-asr-multidataset-pruned_transducer_stateless7-2023-05-04
+#RUN cd /workspace/k2_models/icefall-asr-multidataset-pruned_transducer_stateless7-2023-05-04/exp && \
+#       git lfs pull --include "*.onnx" && \
+#       cd -
+
+
+# for file decoding
+#RUN  git clone https://huggingface.co/csukuangfj/sherpa-onnx-zipformer-en-2023-04-01 /workspace/k2_models/sherpa-onnx-zipformer-en-2023-04-01
+#RUN cd /workspace/k2_models/sherpa-onnx-zipformer-en-2023-04-01 && \
+#       git lfs pull --include "*.onnx"
+#       cd -
+
+
+
+# RUN git clone https://github.com/k2speech/my_website.git /workspace/my_website
+
+RUN mkdir /workspace/my_website
+COPY . /workspace/my_website
+
+#COPY ./web /workspace/sherpa-onnx/bin/web
+#/workspace/sherpa-onnx/python-api-examples/web
+
+ENV PYTHONPATH /workspace/my_website:$PYTHONPATH
+ENV PYTHONPATH /workspace/sherpa-onnx/build/bin:$PYTHONPATH
+
+WORKDIR /workspace/my_website
+EXPOSE 6006
+EXPOSE 6008
+#ENTRYPOINT ./run_onnx.sh
+#ENTRYPOINT ./run_onnx_streaming_bilingual.sh
+ENTRYPOINT ./run_onnx_libri_giga.sh 
